@@ -5,6 +5,7 @@
  */
 package perpustakaan;
 
+import perpustakaan.pinjam.PeminjamanController;
 
 public class HalamanUtamaUI extends javax.swing.JFrame {
 
@@ -39,6 +40,11 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
         jMenuBar1.add(menuPencarian);
 
         menuPeminjaman.setText("Peminjaman");
+        menuPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuPeminjamanMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuPeminjaman);
 
         setJMenuBar(jMenuBar1);
@@ -61,6 +67,12 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
         Perpustakaan.controllerPencarian = new PencarianController();
         Perpustakaan.controllerPencarian.showFormPencarian();
     }//GEN-LAST:event_menuPencarianMouseClicked
+
+    private void menuPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanMouseClicked
+        // TODO add your handling code here:
+        Perpustakaan.peminjamanController = new PeminjamanController();
+        Perpustakaan.peminjamanController.showFormPeminjaman();
+    }//GEN-LAST:event_menuPeminjamanMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
