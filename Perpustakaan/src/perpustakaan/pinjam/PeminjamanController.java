@@ -4,6 +4,10 @@
  */
 package perpustakaan.pinjam;
 
+import java.util.ArrayList;
+import perpustakaan.Buku;
+import perpustakaan.BukuProvider;
+import perpustakaan.DialogUI;
 import perpustakaan.Perpustakaan;
 
 /**
@@ -17,4 +21,14 @@ public class PeminjamanController {
         Perpustakaan.formPeminjaman.tampilkan();
     }
     
+    public void cariBuku(String judul) {
+        BukuProvider bukuProvider = new BukuProvider();
+        ArrayList<Buku> listBuku = bukuProvider.selectBuku(judul);
+        if (listBuku.isEmpty()) {
+            DialogUI dialogUI = new DialogUI("Buku tidak terdaftar");
+            dialogUI.pack();
+            dialogUI.setLocationRelativeTo(null);
+            dialogUI.setVisible(true);
+        } else Perpustakaan.formPeminjaman.display(listBuku);
+    }
 }
