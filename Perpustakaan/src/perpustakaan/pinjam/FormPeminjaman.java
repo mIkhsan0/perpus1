@@ -333,15 +333,16 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
     private void tombolKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolKonfirmasiMouseClicked
         // TODO add your handling code here:
-        if(Perpustakaan.peminjamanManager.peminjaman.getDaftarBuku().size() > 10 
-                && Perpustakaan.peminjamanManager.peminjaman.getDaftarBuku().size() + bukuDipinjamCollection.size() > 10) {
+        int totalBukuDipinjam = Perpustakaan.peminjamanManager.peminjaman.getDaftarBuku().size() + bukuDipinjamCollection.size();
+        
+        if (totalBukuDipinjam > 10) {
             DialogUI dialogUI = new DialogUI("Jumlah buku yang dipinjam melebihi batas maksimal 10 buku");
             dialogUI.pack();
             dialogUI.setLocationRelativeTo(null);
             dialogUI.setVisible(true);
+            return; 
         }
         Perpustakaan.peminjamanController.pinjam(bukuDipinjamCollection);
-        
     }//GEN-LAST:event_tombolKonfirmasiMouseClicked
 
     /**
