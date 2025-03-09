@@ -17,14 +17,14 @@ public class BukuProvider {
         bukuCollection.add(new Buku("Sherlock Holmes"));
         bukuCollection.add(new Buku("Topeng Kaca"));
         bukuCollection.add(new Buku("Doraemon"));
-        bukuCollection.add(new Buku("Hujan"));
         bukuCollection.add(new Buku("Petualangan Doraemon"));
         bukuCollection.add(new Buku("Thomas and Friends"));
-        bukuCollection.add(new Buku("The Lord of The Rings"));
         bukuCollection.add(new Buku("The Return of Sherlock Holmes"));
         bukuCollection.add(new Buku("The Adventure of Sherlock Holmes"));
-        bukuCollection.add(new Buku("Harry Potter"));
         bukuCollection.add(new Buku("Percy Jackson"));
+        bukuCollection.add(new Buku("The Lord of The Rings"));
+        bukuCollection.add(new Buku("Harry Potter"));
+        bukuCollection.add(new Buku("Hujan"));
     }
     
     
