@@ -25,6 +25,9 @@ public class BukuProvider {
         bukuCollection.add(new Buku("The Lord of The Rings"));
         bukuCollection.add(new Buku("Hujan"));
         bukuCollection.add(new Buku("Harry Potter"));
+        bukuCollection.add(new Buku("Divergent"));
+        bukuCollection.add(new Buku("Strange the Dreamer"));
+        bukuCollection.add(new Buku("The Hobbit"));
     }
     
     
