@@ -342,7 +342,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
             dialogUI.setVisible(true);
             return; 
         }
-
         Perpustakaan.peminjamanController.pinjam(bukuDipinjamCollection);
     }//GEN-LAST:event_tombolKonfirmasiMouseClicked
 
