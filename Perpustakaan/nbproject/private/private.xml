@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/Perpustakaan.java</file>
-            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/pinjam/PeminjamanController.java</file>
-            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/pinjam/FormPeminjaman.java</file>
-            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/PencarianController.java</file>
-            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/FormPencarian.java</file>
             <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/HalamanUtamaUI.java</file>
+            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/pinjam/FormPeminjaman.java</file>
+            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/FormPencarian.java</file>
+            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/pinjam/PeminjamanController.java</file>
+            <file>file:/C:/Users/Muhammad/Downloads/Univ/Implementasi%20dan%20Pengujian%20Sistem%20Informasi/Projek%20Mini%201/Perpustakaan/src/perpustakaan/pinjam/PeminjamanManager.java</file>
         </group>
     </open-files>
 </project-private>

@@ -4,13 +4,25 @@
  */
 package perpustakaan.pinjam;
 
+import perpustakaan.Buku;
+
 /**
  *
  * @author Muhammad
  */
-public class BukuDipinjam {
+public class BukuDipinjam extends Buku {
     private int lama;
-    public BukuDipinjam(int lama) {
+
+    public BukuDipinjam(String judul, int lama) {
+        super(judul);
+        this.lama = lama;
+    }
+
+    public int getLama() {
+        return lama;
+    }
+
+    public void setLama(int lama) {
         this.lama = lama;
     }
 }

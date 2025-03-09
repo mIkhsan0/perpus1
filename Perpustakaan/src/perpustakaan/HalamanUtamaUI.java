@@ -6,6 +6,7 @@
 package perpustakaan;
 
 import perpustakaan.pinjam.PeminjamanController;
+import perpustakaan.pinjam.PeminjamanManager;
 
 public class HalamanUtamaUI extends javax.swing.JFrame {
 
@@ -70,6 +71,7 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
 
     private void menuPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanMouseClicked
         // TODO add your handling code here:
+        Perpustakaan.peminjamanManager = new PeminjamanManager();
         Perpustakaan.peminjamanController = new PeminjamanController();
         Perpustakaan.peminjamanController.showFormPeminjaman();
     }//GEN-LAST:event_menuPeminjamanMouseClicked

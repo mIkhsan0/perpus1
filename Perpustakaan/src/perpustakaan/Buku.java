@@ -13,5 +13,12 @@ public class Buku {
     public Buku(String judul) {
         this.judul = judul;
     }
-    
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
 }

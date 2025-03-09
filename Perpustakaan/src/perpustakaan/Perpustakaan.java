@@ -7,6 +7,7 @@ package perpustakaan;
 
 import perpustakaan.pinjam.FormPeminjaman;
 import perpustakaan.pinjam.PeminjamanController;
+import perpustakaan.pinjam.PeminjamanManager;
 
 
 public class Perpustakaan {
@@ -18,6 +19,7 @@ public class Perpustakaan {
     public static BukuProvider bukuProvider;
     public static FormPeminjaman formPeminjaman;
     public static PeminjamanController peminjamanController;
+    public static PeminjamanManager peminjamanManager;
     
     /**
      * @param args the command line arguments

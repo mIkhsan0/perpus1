@@ -4,10 +4,25 @@
  */
 package perpustakaan.pinjam;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Muhammad
  */
 public class PeminjamanManager {
-    
+    Peminjaman peminjaman = new Peminjaman();
+ 
+    public boolean save(ArrayList<BukuDipinjam> bukuDipinjamCollection) {
+        // save to database
+        for (BukuDipinjam bukuDipinjam : bukuDipinjamCollection) {
+            for (BukuDipinjam bukuSudahDipinjam : peminjaman.getDaftarBuku()) {
+                if(bukuDipinjam.judul.equalsIgnoreCase(bukuSudahDipinjam.judul)) {
+                    return false;
+                }
+            }
+            peminjaman.getDaftarBuku().add(bukuDipinjam);
+        }
+        return true;
+    }
 }
