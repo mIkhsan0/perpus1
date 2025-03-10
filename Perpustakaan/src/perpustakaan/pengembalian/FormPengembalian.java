@@ -224,15 +224,18 @@ public class FormPengembalian extends javax.swing.JFrame {
     
     private void tombolKembalikanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolKembalikanMouseClicked
         // TODO add your handling code here:
-        int barisDipilih = daftarPengembalian.getSelectedRow();
+        int barisDipilih = daftarPinjaman.getSelectedRow();
         if (barisDipilih != -1) {
-            String judul = daftarPengembalian.getValueAt(barisDipilih, 0).toString();
-            for(Buku buku : bukuList) {
-                if(buku.judul.equalsIgnoreCase(judul)) {
-                    tambahBuku(buku, Integer.parseInt(lama.getText()));
+            String judul = daftarPinjaman.getValueAt(barisDipilih, 0).toString();
+            for (BukuDipinjam buku : bukuDipinjamCollection) {
+                if (buku.getJudul().equalsIgnoreCase(judul)) {
+                    tambahBukuKeDaftarDikembalikan(buku);
                     return;
                 }
             }
+        } else {
+            DialogUI dialog = new DialogUI("Pilih buku yang ingin dikembalikan!");
+            dialog.setVisible(true);
         }
     }//GEN-LAST:event_tombolKembalikanMouseClicked
 
