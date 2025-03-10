@@ -81,13 +81,16 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
 
     private void menuPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanMouseClicked
         // TODO add your handling code here:
-        Perpustakaan.peminjamanManager = new PeminjamanManager();
+        if (Perpustakaan.peminjamanManager == null)
+            Perpustakaan.peminjamanManager = new PeminjamanManager();
         Perpustakaan.peminjamanController = new PeminjamanController();
         Perpustakaan.peminjamanController.showFormPeminjaman();
     }//GEN-LAST:event_menuPeminjamanMouseClicked
 
     private void menuPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPengembalianMouseClicked
         // TODO add your handling code here:
+        if (Perpustakaan.peminjamanManager == null)
+            Perpustakaan.peminjamanManager = new PeminjamanManager();
         Perpustakaan.pengembalianController = new PengembalianController();
         Perpustakaan.pengembalianController.showFormPengembalian();
     }//GEN-LAST:event_menuPengembalianMouseClicked

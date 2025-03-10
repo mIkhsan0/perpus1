@@ -4,9 +4,11 @@
  */
 package perpustakaan.pengembalian;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import perpustakaan.pinjam.BukuDipinjam;
 import perpustakaan.DialogUI;
+import perpustakaan.Perpustakaan;
 
 /**
  *
@@ -22,18 +24,22 @@ public class PengembalianController {
 
     public void showFormPengembalian() {
         formPengembalian.tampilkan();
+        formPengembalian.display(Perpustakaan.peminjamanManager.getDaftarBukuDipinjam());
     }
 
-    public void konfirmasiPengembalian() {
-        ArrayList<BukuDipinjam> daftarBukuDikembalikan = formPengembalian.getBukuDipinjamCollection();
-        
-        if (daftarBukuDikembalikan.isEmpty()) {
+    public void konfirmasiPengembalian(ArrayList<BukuDipinjam> bukuDikembalikanCollection) {
+        if (bukuDikembalikanCollection.isEmpty()) {
             DialogUI dialog = new DialogUI("Tidak ada buku yang dikembalikan!");
             dialog.setVisible(true);
             return;
         }
 
-        formPengembalian.bayarDenda();
-        formPengembalian.pesanSukses();
+        for(BukuDipinjam buku : bukuDikembalikanCollection)
+            this.cekWaktuPeminjaman(buku);
+    }
+    
+    public void cekWaktuPeminjaman(BukuDipinjam buku) {
+        formPengembalian.pesanSukses(buku.getTanggalPinjam().isBefore(LocalDate.now()), buku);
+        
     }
 }

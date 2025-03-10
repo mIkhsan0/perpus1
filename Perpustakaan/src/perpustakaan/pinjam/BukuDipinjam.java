@@ -4,6 +4,7 @@
  */
 package perpustakaan.pinjam;
 
+import java.time.LocalDate;
 import perpustakaan.Buku;
 
 /**
@@ -12,10 +13,13 @@ import perpustakaan.Buku;
  */
 public class BukuDipinjam extends Buku {
     private int lama;
+    private LocalDate tanggalPinjam;
 
     public BukuDipinjam(String judul, int lama) {
         super(judul);
         this.lama = lama;
+        tanggalPinjam = LocalDate.now();
+        tanggalPinjam.plusDays(lama);
     }
 
     public int getLama() {
@@ -24,5 +28,9 @@ public class BukuDipinjam extends Buku {
 
     public void setLama(int lama) {
         this.lama = lama;
+    }
+    
+    public LocalDate getTanggalPinjam() {
+        return tanggalPinjam;
     }
 }

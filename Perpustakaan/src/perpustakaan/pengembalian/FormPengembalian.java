@@ -6,6 +6,7 @@ package perpustakaan.pengembalian;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import perpustakaan.pinjam.BukuDipinjam;
 import perpustakaan.DialogUI;
@@ -18,6 +19,7 @@ import perpustakaan.Perpustakaan;
 public class FormPengembalian extends javax.swing.JFrame {
 
     private ArrayList<BukuDipinjam> bukuDipinjamCollection = new ArrayList<>();
+    private ArrayList<BukuDipinjam> bukuDikembalikanCollection = new ArrayList<>();
     
     /**
      * Creates new form FormPengembalian
@@ -31,12 +33,10 @@ public class FormPengembalian extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
-        ArrayList<BukuDipinjam> bukuDipinjamDariPeminjaman = Perpustakaan.peminjamanManager.getDaftarBukuDipinjam();
-        display(bukuDipinjamDariPeminjaman);
     }
 
     public void display(ArrayList<BukuDipinjam> bukuList) {
+        this.bukuDipinjamCollection = bukuList;
         Object[] kolom = {"Buku Dipinjam"};
         DefaultTableModel model = new DefaultTableModel(kolom, 0);
 
@@ -51,57 +51,85 @@ public class FormPengembalian extends javax.swing.JFrame {
     }
 
     public void tambahBukuKeDaftarDikembalikan(BukuDipinjam buku) {
-        if (bukuDipinjamCollection.contains(buku)) {
-            DialogUI dialog = new DialogUI("Buku ini sudah dalam daftar pengembalian!");
-            dialog.setVisible(true);
-            return;
-        }
-        bukuDipinjamCollection.add(buku);
-        tampilkanDikembalikan();
+        for(BukuDipinjam bukuDikembalikan : bukuDikembalikanCollection) {
+                if(bukuDikembalikan.judul.equals(buku.judul)) {
+                    return;
+                }
+            }
+        bukuDikembalikanCollection.add(buku);
+        tampilkanDikembalikan(bukuDikembalikanCollection);
     }
 
-    public void tampilkanDikembalikan() {
+    public void tampilkanDikembalikan(ArrayList<BukuDipinjam> bukuList) {
         Object[] kolom = {"Buku Dikembalikan"};
         DefaultTableModel model = new DefaultTableModel(kolom, 0);
 
-        for (BukuDipinjam buku : bukuDipinjamCollection) {
-            model.addRow(new Object[]{buku.getJudul()});
+        for (BukuDipinjam buku : bukuList) {
+            Object[] baris = { buku.judul };
+            model.addRow(baris);
         }
         daftarPengembalian.setModel(model);
     }
 
     public void hapusBukuDariDaftarDikembalikan(BukuDipinjam buku) {
-        bukuDipinjamCollection.remove(buku);
-        tampilkanDikembalikan();
+        bukuDikembalikanCollection.remove(buku);
+        tampilkanDikembalikan(bukuDikembalikanCollection);
     }
 
-    public void pesanSukses() {
-        DialogUI dialog = new DialogUI("Pengembalian berhasil!");
-        dialog.setVisible(true);
-    }
-
-    public void bayarDenda() {
-        int totalDenda = 0;
-        for (BukuDipinjam buku : bukuDipinjamCollection) {
-            int keterlambatan = buku.getLama() - 3;
-            if (keterlambatan > 0) {
-                totalDenda += keterlambatan * 2000;
-            }
-        }
-        if (totalDenda > 0) {
-            DialogUI dialog = new DialogUI("Total denda: Rp " + totalDenda);
+    public void pesanSukses(Boolean sukses, BukuDipinjam buku) {
+        if (!sukses) {
+            DialogUI dialog = new DialogUI("Silahkan bayar denda");
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
+            new Thread(() -> {
+                while (dialog.isVisible()) {
+                    try {
+                        Thread.sleep(100); // Sleep for 100ms, then check again
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Run this on the UI thread after FirstFrame is closed
+                SwingUtilities.invokeLater(() -> {
+                    bayarDenda(buku);
+                });
+            }).start();
         } else {
-            pesanSukses();
+            statusPengembalian(buku);
         }
     }
 
-    public boolean statusPengembalian() {
-        return !bukuDipinjamCollection.isEmpty();
+    public void bayarDenda(BukuDipinjam buku) {
+        int totalDenda = 2000;
+        DialogUI dialog = new DialogUI("Total denda: Rp " + totalDenda);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        new Thread(() -> {
+            while (dialog.isVisible()) {
+                try {
+                    Thread.sleep(100); // Sleep for 100ms, then check again
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Run this on the UI thread after FirstFrame is closed
+            SwingUtilities.invokeLater(() -> {
+                statusPengembalian(buku);
+            });
+        }).start();
     }
 
-    public ArrayList<BukuDipinjam> getBukuDipinjamCollection() {
-        return bukuDipinjamCollection;
+    public boolean statusPengembalian(BukuDipinjam buku) {
+        DialogUI dialog = new DialogUI(" Pengembalian buku: " + buku.getJudul() + " telah dikonfirmasi");
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        bukuDipinjamCollection.remove(buku);
+        return true;
     }
     
     /**
@@ -134,6 +162,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
             }
         ));
+        daftarPengembalian.setEnabled(false);
         jScrollPane2.setViewportView(daftarPengembalian);
 
         daftarPinjaman.setModel(new javax.swing.table.DefaultTableModel(
@@ -147,7 +176,6 @@ public class FormPengembalian extends javax.swing.JFrame {
 
             }
         ));
-        daftarPinjaman.setEnabled(false);
         jScrollPane1.setViewportView(daftarPinjaman);
 
         tombolKembalikan.setText("Kembalikan");
@@ -218,18 +246,14 @@ public class FormPengembalian extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void judulBukuActionPerformed(java.awt.event.ActionEvent evt) {
-                                                  
-    }                 
-    
     private void tombolKembalikanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolKembalikanMouseClicked
         // TODO add your handling code here:
         int barisDipilih = daftarPinjaman.getSelectedRow();
         if (barisDipilih != -1) {
             String judul = daftarPinjaman.getValueAt(barisDipilih, 0).toString();
-            for (BukuDipinjam buku : bukuDipinjamCollection) {
-                if (buku.getJudul().equalsIgnoreCase(judul)) {
-                    tambahBukuKeDaftarDikembalikan(buku);
+            for (BukuDipinjam bukuDipinjam : bukuDipinjamCollection) {
+                if (bukuDipinjam.getJudul().equalsIgnoreCase(judul)) {
+                    tambahBukuKeDaftarDikembalikan(bukuDipinjam);
                     return;
                 }
             }
@@ -241,29 +265,17 @@ public class FormPengembalian extends javax.swing.JFrame {
 
     private void tombolKembalikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolKembalikanActionPerformed
         // TODO add your handling code here:
-            int barisDipilih = daftarPinjaman.getSelectedRow();
-        if (barisDipilih != -1) {
-            String judul = daftarPinjaman.getValueAt(barisDipilih, 0).toString();
-            for (BukuDipinjam buku : bukuDipinjamCollection) {
-                if (buku.getJudul().equalsIgnoreCase(judul)) {
-                    tambahBukuKeDaftarDikembalikan(buku);
-                    return;
-                }
-            }
-        } else {
-            DialogUI dialog = new DialogUI("Pilih buku yang ingin dikembalikan!");
-            dialog.setVisible(true);
-        }
+     
     }//GEN-LAST:event_tombolKembalikanActionPerformed
 
     private void tombolBatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolBatalMouseClicked
         // TODO add your handling code here:
-        int barisDipilih = daftarPengembalian.getSelectedRow();
+        int barisDipilih = daftarPinjaman.getSelectedRow();
         if (barisDipilih != -1) {
-            String judul = daftarPengembalian.getValueAt(barisDipilih, 0).toString();
-            for (BukuDipinjam buku : bukuDipinjamCollection) {
-                if (buku.getJudul().equalsIgnoreCase(judul)) {
-                    hapusBukuDariDaftarDikembalikan(buku);
+            String judul = daftarPinjaman.getValueAt(barisDipilih, 0).toString();
+            for (BukuDipinjam bukuDikembalikan : bukuDikembalikanCollection) {
+                if (bukuDikembalikan.getJudul().equalsIgnoreCase(judul)) {
+                    hapusBukuDariDaftarDikembalikan(bukuDikembalikan);
                     return;
                 }
             }
@@ -275,56 +287,8 @@ public class FormPengembalian extends javax.swing.JFrame {
 
     private void tombolKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolKonfirmasiMouseClicked
         // TODO add your handling code here:
-        int barisDipilih = daftarPinjaman.getSelectedRow();
-        if (barisDipilih != -1) {
-            String judul = daftarPinjaman.getValueAt(barisDipilih, 0).toString();
-            for (BukuDipinjam buku : bukuDipinjamCollection) {
-                if (buku.getJudul().equalsIgnoreCase(judul)) {
-                    tambahBukuKeDaftarDikembalikan(buku);
-                    return;
-                }
-            }
-        } else {
-            DialogUI dialog = new DialogUI("Pilih buku yang ingin dikembalikan!");
-            dialog.setVisible(true);
-        }
+        Perpustakaan.pengembalianController.konfirmasiPengembalian(bukuDikembalikanCollection);
     }//GEN-LAST:event_tombolKonfirmasiMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-
-         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormPengembalian().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable daftarPengembalian;
