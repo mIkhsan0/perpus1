@@ -7,6 +7,7 @@ package perpustakaan;
 
 import perpustakaan.pinjam.PeminjamanController;
 import perpustakaan.pinjam.PeminjamanManager;
+import perpustakaan.pengembalian.PengembalianController;
 
 public class HalamanUtamaUI extends javax.swing.JFrame {
 
@@ -29,6 +30,7 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPencarian = new javax.swing.JMenu();
         menuPeminjaman = new javax.swing.JMenu();
+        menuPengembalian = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +49,14 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(menuPeminjaman);
+
+        menuPengembalian.setText("Pengembalian");
+        menuPengembalian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuPengembalianMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuPengembalian);
 
         setJMenuBar(jMenuBar1);
 
@@ -76,9 +86,16 @@ public class HalamanUtamaUI extends javax.swing.JFrame {
         Perpustakaan.peminjamanController.showFormPeminjaman();
     }//GEN-LAST:event_menuPeminjamanMouseClicked
 
+    private void menuPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPengembalianMouseClicked
+        // TODO add your handling code here:
+        Perpustakaan.pengembalianController = new PengembalianController();
+        Perpustakaan.pengembalianController.showFormPengembalian();
+    }//GEN-LAST:event_menuPengembalianMouseClicked
+                                      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuPeminjaman;
     private javax.swing.JMenu menuPencarian;
+    private javax.swing.JMenu menuPengembalian;
     // End of variables declaration//GEN-END:variables
 }
