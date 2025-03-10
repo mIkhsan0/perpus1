@@ -78,7 +78,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
     public void pesanSukses(Boolean sukses, BukuDipinjam buku) {
         if (!sukses) {
-            DialogUI dialog = new DialogUI("Silahkan bayar denda");
+            DialogUI dialog = new DialogUI("Silahkan bayar denda", "Bayar");
             dialog.pack();
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
@@ -103,7 +103,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
     public void bayarDenda(BukuDipinjam buku) {
         int totalDenda = 2000;
-        DialogUI dialog = new DialogUI("Total denda: Rp " + totalDenda);
+        DialogUI dialog = new DialogUI("Total denda dibayar: Rp " + totalDenda);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

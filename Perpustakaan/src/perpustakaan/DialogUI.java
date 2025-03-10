@@ -20,6 +20,12 @@ public class DialogUI extends javax.swing.JFrame {
         jLabelMessage.setText(message);
     }
     
+    public DialogUI(String message, String buttonMessage) {
+        this();
+        jLabelMessage.setText(message);
+        jButtonOK.setText(buttonMessage);
+    }
+    
     public void setMessage(String message) {
         jLabelMessage.setText(message);
     }
