@@ -18,8 +18,7 @@ public class BukuDipinjam extends Buku {
     public BukuDipinjam(String judul, int lama) {
         super(judul);
         this.lama = lama;
-        tanggalPinjam = LocalDate.now();
-        tanggalPinjam = tanggalPinjam.plusDays(lama);
+        tanggalPinjam = LocalDate.now().plusDays(lama);
     }
 
     public int getLama() {

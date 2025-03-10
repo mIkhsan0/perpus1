@@ -39,7 +39,6 @@ public class PengembalianController {
     }
     
     public void cekWaktuPeminjaman(BukuDipinjam buku) {
-        formPengembalian.pesanSukses(buku.getTanggalPinjam().isBefore(LocalDate.now()), buku);
-        
+        formPengembalian.pesanSukses(buku.getTanggalPinjam().isAfter(LocalDate.now()) || buku.getTanggalPinjam().isEqual(LocalDate.now()), buku);
     }
 }

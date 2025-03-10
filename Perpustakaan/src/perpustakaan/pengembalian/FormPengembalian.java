@@ -129,6 +129,9 @@ public class FormPengembalian extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         bukuDipinjamCollection.remove(buku);
+        bukuDikembalikanCollection = new ArrayList<>();
+        this.display(bukuDipinjamCollection);
+        this.tampilkanDikembalikan(bukuDikembalikanCollection);
         return true;
     }
     
@@ -259,6 +262,8 @@ public class FormPengembalian extends javax.swing.JFrame {
             }
         } else {
             DialogUI dialog = new DialogUI("Pilih buku yang ingin dikembalikan!");
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_tombolKembalikanMouseClicked
@@ -281,6 +286,8 @@ public class FormPengembalian extends javax.swing.JFrame {
             }
         } else {
             DialogUI dialog = new DialogUI("Pilih buku yang ingin dibatalkan dari daftar pengembalian!");
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_tombolBatalMouseClicked

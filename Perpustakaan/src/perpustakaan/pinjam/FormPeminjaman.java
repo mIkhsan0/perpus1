@@ -343,6 +343,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
             return; 
         }
         Perpustakaan.peminjamanController.pinjam(bukuDipinjamCollection);
+        bukuDipinjamCollection = new ArrayList<>();
+        tampilPinjaman(bukuDipinjamCollection);
     }//GEN-LAST:event_tombolKonfirmasiMouseClicked
 
     /**
