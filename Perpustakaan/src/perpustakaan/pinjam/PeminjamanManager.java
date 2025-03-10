@@ -25,4 +25,9 @@ public class PeminjamanManager {
         }
         return true;
     }
+
+    public ArrayList<BukuDipinjam> getDaftarBukuDipinjam() {
+        return peminjaman.getDaftarBuku();
+    }
+    
 }
